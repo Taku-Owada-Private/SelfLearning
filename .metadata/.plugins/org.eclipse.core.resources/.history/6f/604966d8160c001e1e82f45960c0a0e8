@@ -1,0 +1,36 @@
+package sample1.aaa;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class CalculatorTest {
+
+	@Test
+	public void testAdd() {
+		//オブジェクトを生成
+		Calculator cal = new Calculator();
+		//期待値
+		int expected = 5;
+		//実測値
+		int actual = cal.add(2, 3);
+		//期待値と実測値の比較
+		assertEquals(actual, expected);
+	}
+
+	@Test
+	public void testSub() {
+		Calculator
+	}
+
+	@Test
+	public void testMul() {
+		fail("まだ実装されていません");
+	}
+
+	@Test
+	public void testDiv() {
+		fail("まだ実装されていません");
+	}
+
+}

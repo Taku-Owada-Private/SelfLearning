@@ -1,0 +1,31 @@
+package sample1.aaa;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class CalculatorTest {
+
+	@Test
+	public void testAdd() {
+		//オブジェクトを生成
+		Calculator cal = new Calculator();
+		fail("まだ実装されていません");
+	}
+
+	@Test
+	public void testSub() {
+		fail("まだ実装されていません");
+	}
+
+	@Test
+	public void testMul() {
+		fail("まだ実装されていません");
+	}
+
+	@Test
+	public void testDiv() {
+		fail("まだ実装されていません");
+	}
+
+}

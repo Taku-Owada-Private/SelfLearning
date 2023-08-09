@@ -10,13 +10,38 @@ const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui 
 const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
+
+let posts = [];
+
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
 // app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/" , async(req , res)=>{
-  res.render("home.ejs" , {content : homeStartingContent});
+  res.render("home.ejs" , {
+    content : homeStartingContent ,
+    posts : posts
+  });
 });
+
+app.post("/" , async(req , res)=>{
+  const post = {
+    title : req.body.title,
+    text : req.body.postContent
+  };
+  posts.push(post);
+  // console.log(post);
+  // console.log(posts);
+
+  res.redirect("/");
+  // try {
+  //   const result = await axios.get(API_URL + "/secrets/" + searchId, config);
+  //   res.render("index.ejs", { content: JSON.stringify(result.data) });
+  // } catch (error) {
+  //   res.render("index.ejs", { content: JSON.stringify(error.response.data) });
+  // }
+});
+
 
 app.get("/about" , async(req , res)=>{
   res.render("about.ejs" , {content : aboutContent});
@@ -26,8 +51,15 @@ app.get("/contact" , async(req , res)=>{
   res.render("contact.ejs" , {content : contactContent});
 });
 
+app.get("/compose" , async(req , res)=>{
+  res.render("compose.ejs");
+});
+
+
 
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
+
+

@@ -6,7 +6,14 @@
 
 <% posts.forEach(function (post) { %>
 <h3><%=post.title %></h3>
-<p><%=post.text %><p>
+<% if(post.text.length >= 100 ){ %>
+        <% const shortText = post.text.slice( 0, 100 ) ; %>
+        <p><%=shortText + "..."%></p><a href="/post.ejs">Read More</a>
+        
+    <% }else{ %>
+        <p><%= post.text%></p><a href="/post.ejs">Read More</a>
+        <% }%>
+
 <% }); %>
 
   

@@ -1,6 +1,8 @@
 //jshint esversion:6
 import express from "express";
 import axios from "axios";
+import _ from 'lodash';
+
 
 const app = express();
 // const bodyParser = require("body-parser");
@@ -13,21 +15,21 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 let posts = [];
 
-app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodies
 // app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-app.get("/" , async(req , res)=>{
-  res.render("home.ejs" , {
-    content : homeStartingContent ,
-    posts : posts
+app.get("/", async (req, res) => {
+  res.render("home.ejs", {
+    content: homeStartingContent,
+    posts: posts
   });
 });
 
-app.post("/" , async(req , res)=>{
+app.post("/", async (req, res) => {
   const post = {
-    title : req.body.title,
-    text : req.body.postContent
+    title: req.body.title,
+    text: req.body.postContent
   };
   posts.push(post);
   // console.log(post);
@@ -43,22 +45,44 @@ app.post("/" , async(req , res)=>{
 });
 
 
-app.get("/about" , async(req , res)=>{
-  res.render("about.ejs" , {content : aboutContent});
+app.get("/about", async (req, res) => {
+  res.render("about.ejs", { content: aboutContent });
 });
 
-app.get("/contact" , async(req , res)=>{
-  res.render("contact.ejs" , {content : contactContent});
+app.get("/contact", async (req, res) => {
+  res.render("contact.ejs", { content: contactContent });
 });
 
-app.get("/compose" , async(req , res)=>{
+app.get("/compose", async (req, res) => {
   res.render("compose.ejs");
 });
 
 
 
+app.get('/posts/:topic', (req, res) => {
+  const urlTitle = req.params.topic;
 
-app.listen(3000, function() {
+  posts.forEach(function (post) {
+    const kebabTitle = _.kebabCase(post.title);
+    console.log(kebabTitle);
+    if (kebabTitle === urlTitle) {
+      console.log("match found!!!");
+      res.render("post.ejs", {
+        post: post
+      });
+    } else {
+      console.log("no match");
+    }
+
+
+
+
+  });
+
+
+});
+
+app.listen(3000, function () {
   console.log("Server started on port 3000");
 });
 
